@@ -1,8 +1,14 @@
 
 import { Text, View } from "react-native";
 import { Canvas, Rect, Line } from "@shopify/react-native-skia";
+import { useState } from "react";
 
 export default function Index() {
+  // Initialize 8x8 grid with all cells as false (empty)
+  const [grid, setGrid] = useState<boolean[][]>(
+    Array.from({ length: 8 }, () => Array.from({ length: 8 }, () => false))
+  );
+
   return (
     <View
       style={{
