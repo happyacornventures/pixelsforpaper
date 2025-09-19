@@ -27,6 +27,21 @@ export default function Index() {
         {Array.from({ length: 9 }, (_, i) => (
           <Line key={`h${i}`} p1={{ x: 0, y: i * 30 }} p2={{ x: 240, y: i * 30 }} color="#333" strokeWidth={1} />
         ))}
+        {/* Filled pixels based on grid state */}
+        {grid.map((row, rowIndex) =>
+          row.map((filled, colIndex) =>
+            filled ? (
+              <Rect
+                key={`pixel-${rowIndex}-${colIndex}`}
+                x={colIndex * 30 + 1}
+                y={rowIndex * 30 + 1}
+                width={28}
+                height={28}
+                color="#333"
+              />
+            ) : null
+          )
+        )}
       </Canvas>
       <Text>8x8 Pixel Art Canvas</Text>
     </View>
