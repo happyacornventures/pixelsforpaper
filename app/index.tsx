@@ -1,13 +1,22 @@
 
-import { Text, View } from "react-native";
-import { Canvas, Rect, Line } from "@shopify/react-native-skia";
+import { Canvas, Line, Rect } from "@shopify/react-native-skia";
 import { useState } from "react";
+import { Pressable, Text, View } from "react-native";
 
 export default function Index() {
   // Initialize 8x8 grid with all cells as false (empty)
   const [grid, setGrid] = useState<boolean[][]>(
     Array.from({ length: 8 }, () => Array.from({ length: 8 }, () => false))
   );
+
+  const handleCanvasPress = (event: any) => {
+    const { locationX, locationY } = event.nativeEvent;
+    const col = Math.floor(locationX / 30);
+    const row = Math.floor(locationY / 30);
+
+    console.log('Absolute coordinates:', { x: locationX, y: locationY });
+    console.log('Grid coordinates:', { row, col });
+  };
 
   return (
     <View
