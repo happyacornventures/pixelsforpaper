@@ -9,10 +9,13 @@ export default function Index() {
   );
 
   const pan = Gesture.Pan().onUpdate(console.log).onEnd(console.log);
+  const tap = Gesture.Tap().onEnd((event) => {
+    console.log('Tap at:', event.x, event.y);
+  });
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <GestureDetector gesture={pan}>
+      <GestureDetector gesture={tap}>
         <View
           style={{
             flex: 1,
