@@ -8,14 +8,28 @@ export default function Index() {
     Array.from({ length: 8 }, () => Array(8).fill(0))
   );
 
-  const pan = Gesture.Pan().onUpdate(console.log).onEnd(console.log);
+  const pan = Gesture.Pan()
+    .onBegin((event) => {
+      console.log('Drag started at:', event.x, event.y);
+      // Handle the initial click/press
+    })
+    .onUpdate((event) => {
+      console.log('Dragging to:', event.x, event.y);
+      // Handle continuous dragging
+    })
+    .onEnd((event) => {
+      console.log('Drag ended at:', event.x, event.y);
+      // Handle when drag is released
+    });
   const tap = Gesture.Tap().onEnd((event) => {
     console.log('Tap at:', event.x, event.y);
   });
 
+  const combinedGesture = Gesture.Race(tap, pan);
+
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <GestureDetector gesture={tap}>
+      <GestureDetector gesture={combinedGesture}>
         <View
           style={{
             flex: 1,
