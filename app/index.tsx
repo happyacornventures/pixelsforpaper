@@ -23,6 +23,9 @@ export default function Index() {
     });
   const tap = Gesture.Tap().onEnd((event) => {
     console.log('Tap at:', event.x, event.y);
+    const cellX = Math.floor(event.x / 30);
+    const cellY = Math.floor(event.y / 30);
+    console.log('Clicked cell at:', cellX, cellY);
   });
 
   const combinedGesture = Gesture.Race(tap, pan);
