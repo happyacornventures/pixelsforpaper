@@ -9,7 +9,6 @@ export default function Index() {
   const pan = Gesture.Pan()
     .onBegin((event) => {
       console.log('Drag started at:', event.x, event.y);
-      // Handle the initial click/press
     })
     .onUpdate((event) => {
       console.log('Dragging to:', event.x, event.y);
