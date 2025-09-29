@@ -2,8 +2,8 @@ import { Canvas, Line, Rect } from '@shopify/react-native-skia';
 import { Gesture, GestureDetector, GestureHandlerRootView } from 'react-native-gesture-handler';
 
 export default function Index() {
-  const [grid, setGrid] = useState(
-    Array.from({ length: 8 }, () => Array(8).fill(0))
+  const grid = useSharedValue(
+    Array.from({ length: 64 }, () => '#fff')
   );
 
   const pan = Gesture.Pan()
