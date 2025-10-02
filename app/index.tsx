@@ -5,11 +5,20 @@ import { Gesture, GestureDetector, GestureHandlerRootView } from 'react-native-g
 import { runOnJS } from 'react-native-reanimated';
 
 export default function Index() {
+  const [grid, setGrid] = useState(() => Array.from({ length: 8 }, () => Array.from({ length: 8 }, () => false)))
   const [index, setIndex] = useState(0);
 
   const updateIndex = () => {
     setIndex((prev) => prev + 1);
   };
+
+  const updateGrid = (x: number, y: number) => {
+    setGrid((prev) => {
+      const newGrid = prev.map(row => row.slice());
+      newGrid[y][x] = !newGrid[y][x];
+      return newGrid;
+    });
+  }
 
   const tap = Gesture.Tap().onEnd((event) => {
     console.log('tap', event, index + 1);
