@@ -22,6 +22,9 @@ export default function Index() {
 
   const tap = Gesture.Tap().onEnd((event) => {
     console.log('tap', event, index + 1);
+    console.log('tap happened at', event.x, event.y);
+    console.log('tapped cell:', Math.floor(event.x / 30), Math.floor(event.y / 30));
+    runOnJS(updateGrid)(Math.floor(event.x / 30), Math.floor(event.y / 30));
     runOnJS(updateIndex)();
   });
 
