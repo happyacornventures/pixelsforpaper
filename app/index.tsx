@@ -54,9 +54,9 @@ export default function Index() {
               ))
             )} */}
           </Canvas>
-          <Text style={{ fontSize: 24 }}>{index}</Text>
         </View>
       </GestureDetector>
+      <Text style={{ fontSize: 24 }}>{index}</Text>
     </GestureHandlerRootView>
   );
 }
