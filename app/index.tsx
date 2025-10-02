@@ -53,7 +53,7 @@ export default function Index() {
               <Line key={`h${i}`} p1={{ x: 0, y: i * 30 }} p2={{ x: 240, y: i * 30 }} color="#333" strokeWidth={1} />
             ))}
             {/** 8x8 grid here */}
-            {/* {grid.value.map((row, rowIndex) =>
+            {grid.map((row, rowIndex) =>
               row.map((cell, cellIndex) => (
                 <Rect
                   key={`${rowIndex}-${cellIndex}`}
@@ -64,7 +64,7 @@ export default function Index() {
                   color={cell ? "#333" : "#fff"}
                 />
               ))
-            )} */}
+            )}
           </Canvas>
         </View>
       </GestureDetector>
