@@ -1,16 +1,11 @@
 import { Canvas, Line, Rect } from '@shopify/react-native-skia';
 import { useState } from 'react';
-import { Text, View } from 'react-native';
+import { View } from 'react-native';
 import { Gesture, GestureDetector, GestureHandlerRootView } from 'react-native-gesture-handler';
 import { runOnJS } from 'react-native-reanimated';
 
 export default function Index() {
   const [grid, setGrid] = useState(() => Array.from({ length: 8 }, () => Array.from({ length: 8 }, () => false)))
-  const [index, setIndex] = useState(0);
-
-  const updateIndex = () => {
-    setIndex((prev) => prev + 1);
-  };
 
   const updateGrid = (x: number, y: number) => {
     setGrid((prev) => {
@@ -21,11 +16,7 @@ export default function Index() {
   }
 
   const tap = Gesture.Tap().onEnd((event) => {
-    console.log('tap', event, index + 1);
-    console.log('tap happened at', event.x, event.y);
-    console.log('tapped cell:', Math.floor(event.x / 30), Math.floor(event.y / 30));
     runOnJS(updateGrid)(Math.floor(event.x / 30), Math.floor(event.y / 30));
-    runOnJS(updateIndex)();
   });
 
   return (
@@ -68,7 +59,6 @@ export default function Index() {
           </Canvas>
         </View>
       </GestureDetector>
-      <Text style={{ fontSize: 24 }}>{index}</Text>
     </GestureHandlerRootView>
   );
 }
