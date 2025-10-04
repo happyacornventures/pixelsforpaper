@@ -59,8 +59,8 @@ export default function Index() {
                   key={`${rowIndex}-${cellIndex}`}
                   x={cellIndex * 30}
                   y={rowIndex * 30}
-                  width={24}
-                  height={24}
+                  width={30}
+                  height={30}
                   color={cell ? "#333" : "#fff"}
                 />
               ))
