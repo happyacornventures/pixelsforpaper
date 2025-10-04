@@ -15,9 +15,25 @@ export default function Index() {
     });
   }
 
+  const pan = Gesture.Pan()
+    .onBegin((event) => {
+      console.log('Drag started at:', event.x, event.y);
+      // Handle the initial click/press
+    })
+    .onUpdate((event) => {
+      console.log('Dragging to:', event.x, event.y);
+      // Handle continuous dragging
+    })
+    .onEnd((event) => {
+      console.log('Drag ended at:', event.x, event.y);
+      // Handle when drag is released
+    });
+
   const tap = Gesture.Tap().onEnd((event) => {
     runOnJS(updateGrid)(Math.floor(event.x / 30), Math.floor(event.y / 30));
   });
+
+  const combinedGesture = Gesture.Race(tap, pan);
 
   return (
     <GestureHandlerRootView style={{
@@ -25,7 +41,7 @@ export default function Index() {
       justifyContent: "center",
       alignItems: "center",
     }}>
-      <GestureDetector gesture={tap}>
+      <GestureDetector gesture={combinedGesture}>
         <View style={{
           width: 240,
           height: 240,
