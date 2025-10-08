@@ -8,6 +8,7 @@ export default function Index() {
   const [grid, setGrid] = useState(() => Array.from({ length: 8 }, () => Array.from({ length: 8 }, () => false)))
 
   const updateGrid = (x: number, y: number, value?: boolean) => {
+    if (x < 0 || x >= 8 || y < 0 || y >= 8) return;
     setGrid((prev) => {
       const newGrid = prev.map(row => row.slice());
       newGrid[y][x] = value ?? !newGrid[y][x];
