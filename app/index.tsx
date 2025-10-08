@@ -45,7 +45,7 @@ export default function Index() {
       justifyContent: "center",
       alignItems: "center",
     }}>
-      <GestureDetector gesture={combinedGesture}>
+      <GestureDetector gesture={pan}>
         <View style={{
           width: 240,
           height: 240,
