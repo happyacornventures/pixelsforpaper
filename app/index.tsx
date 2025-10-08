@@ -7,10 +7,10 @@ import { runOnJS } from 'react-native-reanimated';
 export default function Index() {
   const [grid, setGrid] = useState(() => Array.from({ length: 8 }, () => Array.from({ length: 8 }, () => false)))
 
-  const updateGrid = (x: number, y: number) => {
+  const updateGrid = (x: number, y: number, value?: boolean) => {
     setGrid((prev) => {
       const newGrid = prev.map(row => row.slice());
-      newGrid[y][x] = !newGrid[y][x];
+      newGrid[y][x] = value ?? !newGrid[y][x];
       return newGrid;
     });
   }
