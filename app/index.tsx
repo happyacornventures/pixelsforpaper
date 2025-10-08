@@ -19,14 +19,17 @@ export default function Index() {
   const pan = Gesture.Pan()
     .onBegin((event) => {
       console.log('Drag started at:', Math.floor(event.x / 30), Math.floor(event.y / 30));
+      runOnJS(updateGrid)(Math.floor(event.x / 30), Math.floor(event.y / 30), true);
       // Handle the initial click/press
     })
     .onUpdate((event) => {
       console.log('Dragging to:', Math.floor(event.x / 30), Math.floor(event.y / 30));
+      runOnJS(updateGrid)(Math.floor(event.x / 30), Math.floor(event.y / 30), true);
       // Handle continuous dragging
     })
     .onEnd((event) => {
       console.log('Drag ended at:', Math.floor(event.x / 30), Math.floor(event.y / 30));
+      runOnJS(updateGrid)(Math.floor(event.x / 30), Math.floor(event.y / 30), true);
       // Handle when drag is released
     });
 
