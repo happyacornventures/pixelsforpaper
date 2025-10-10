@@ -5,13 +5,13 @@ import { Gesture, GestureDetector, GestureHandlerRootView } from 'react-native-g
 import { runOnJS } from 'react-native-reanimated';
 
 export default function Index() {
-  const [grid, setGrid] = useState(() => Array.from({ length: 8 }, () => Array.from({ length: 8 }, () => false)))
+  const [grid, setGrid] = useState(() => Array.from({ length: 8 }, () => Array.from({ length: 8 }, () => "#fff")))
 
-  const updateGrid = (x: number, y: number, value?: boolean) => {
+  const updateGrid = (x: number, y: number, value?: string) => {
     if (x < 0 || x >= 8 || y < 0 || y >= 8) return;
     setGrid((prev) => {
       const newGrid = prev.map(row => row.slice());
-      newGrid[y][x] = value ?? !newGrid[y][x];
+      newGrid[y][x] = value ?? (newGrid[y][x] === "#fff" ? "#333" : "#fff");
       return newGrid;
     });
   }
@@ -19,22 +19,22 @@ export default function Index() {
   const pan = Gesture.Pan()
     .onBegin((event) => {
       console.log('Drag started at:', Math.floor(event.x / 30), Math.floor(event.y / 30));
-      runOnJS(updateGrid)(Math.floor(event.x / 30), Math.floor(event.y / 30), true);
+      runOnJS(updateGrid)(Math.floor(event.x / 30), Math.floor(event.y / 30), "#333");
       // Handle the initial click/press
     })
     .onUpdate((event) => {
       console.log('Dragging to:', Math.floor(event.x / 30), Math.floor(event.y / 30));
-      runOnJS(updateGrid)(Math.floor(event.x / 30), Math.floor(event.y / 30), true);
+      runOnJS(updateGrid)(Math.floor(event.x / 30), Math.floor(event.y / 30), "#333");
       // Handle continuous dragging
     })
     .onEnd((event) => {
       console.log('Drag ended at:', Math.floor(event.x / 30), Math.floor(event.y / 30));
-      runOnJS(updateGrid)(Math.floor(event.x / 30), Math.floor(event.y / 30), true);
+      runOnJS(updateGrid)(Math.floor(event.x / 30), Math.floor(event.y / 30), "#333");
       // Handle when drag is released
     });
 
   const tap = Gesture.Tap().onEnd((event) => {
-    runOnJS(updateGrid)(Math.floor(event.x / 30), Math.floor(event.y / 30));
+    runOnJS(updateGrid)(Math.floor(event.x / 30), Math.floor(event.y / 30), "#333");
   });
 
   const combinedGesture = Gesture.Race(pan);
