@@ -37,7 +37,7 @@ export default function Index() {
     runOnJS(updateGrid)(Math.floor(event.x / 30), Math.floor(event.y / 30));
   });
 
-  const combinedGesture = Gesture.Race(tap, pan);
+  const combinedGesture = Gesture.Race(pan);
 
   return (
     <GestureHandlerRootView style={{
