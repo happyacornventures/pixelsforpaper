@@ -5,15 +5,15 @@ import { Gesture, GestureDetector, GestureHandlerRootView } from 'react-native-g
 import { runOnJS } from 'react-native-reanimated';
 
 export default function Index() {
-  const [grid, setGrid] = useState(() => Array.from({ length: 24 }, () => Array.from({ length: 24 }, () => "#fff")))
+  const [grid, setGrid] = useState(() => Array.from({ length: 24 }, () => Array.from({ length: 24 }, () => 0)))
   const [palette] = useState(["#fff", "#333"]);
   const [currentColor, setCurrentColor] = useState(1);
 
-  const updateGrid = (x: number, y: number, value?: string) => {
+  const updateGrid = (x: number, y: number, value?: number) => {
     if (x < 0 || x >= 24 || y < 0 || y >= 24) return;
     setGrid((prev) => {
       const newGrid = prev.map(row => row.slice());
-      newGrid[y][x] = value ?? (newGrid[y][x] === "#fff" ? "#333" : "#fff");
+      newGrid[y][x] = value ?? (newGrid[y][x] === 0 ? 1 : 0);
       return newGrid;
     });
   }
@@ -21,22 +21,22 @@ export default function Index() {
   const pan = Gesture.Pan()
     .onBegin((event) => {
       console.log('Drag started at:', Math.floor(event.x / 10), Math.floor(event.y / 10));
-      runOnJS(updateGrid)(Math.floor(event.x / 10), Math.floor(event.y / 10), "#333");
+      runOnJS(updateGrid)(Math.floor(event.x / 10), Math.floor(event.y / 10), 1);
       // Handle the initial click/press
     })
     .onUpdate((event) => {
       console.log('Dragging to:', Math.floor(event.x / 10), Math.floor(event.y / 10));
-      runOnJS(updateGrid)(Math.floor(event.x / 10), Math.floor(event.y / 10), "#333");
+      runOnJS(updateGrid)(Math.floor(event.x / 10), Math.floor(event.y / 10), 1);
       // Handle continuous dragging
     })
     .onEnd((event) => {
       console.log('Drag ended at:', Math.floor(event.x / 10), Math.floor(event.y / 10));
-      runOnJS(updateGrid)(Math.floor(event.x / 10), Math.floor(event.y / 10), "#333");
+      runOnJS(updateGrid)(Math.floor(event.x / 10), Math.floor(event.y / 10), 1);
       // Handle when drag is released
     });
 
   const tap = Gesture.Tap().onEnd((event) => {
-    runOnJS(updateGrid)(Math.floor(event.x / 10), Math.floor(event.y / 10), "#333");
+    runOnJS(updateGrid)(Math.floor(event.x / 10), Math.floor(event.y / 10), 1);
   });
 
   const combinedGesture = Gesture.Race(pan);
@@ -66,7 +66,7 @@ export default function Index() {
                   y={rowIndex * 10}
                   width={10}
                   height={10}
-                  color={cell}
+                  color={palette[cell]}
                 />
               ))
             )}
