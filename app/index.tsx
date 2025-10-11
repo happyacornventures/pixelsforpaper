@@ -64,7 +64,7 @@ export default function Index() {
                   y={rowIndex * 10}
                   width={10}
                   height={10}
-                  color={cell ? "#333" : "#fff"}
+                  color={cell}
                 />
               ))
             )}
