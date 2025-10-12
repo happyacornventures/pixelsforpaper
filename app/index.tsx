@@ -21,22 +21,22 @@ export default function Index() {
   const pan = Gesture.Pan()
     .onBegin((event) => {
       console.log('Drag started at:', Math.floor(event.x / 10), Math.floor(event.y / 10));
-      runOnJS(updateGrid)(Math.floor(event.x / 10), Math.floor(event.y / 10), 1);
+      runOnJS(updateGrid)(Math.floor(event.x / 10), Math.floor(event.y / 10), currentColor);
       // Handle the initial click/press
     })
     .onUpdate((event) => {
       console.log('Dragging to:', Math.floor(event.x / 10), Math.floor(event.y / 10));
-      runOnJS(updateGrid)(Math.floor(event.x / 10), Math.floor(event.y / 10), 1);
+      runOnJS(updateGrid)(Math.floor(event.x / 10), Math.floor(event.y / 10), currentColor);
       // Handle continuous dragging
     })
     .onEnd((event) => {
       console.log('Drag ended at:', Math.floor(event.x / 10), Math.floor(event.y / 10));
-      runOnJS(updateGrid)(Math.floor(event.x / 10), Math.floor(event.y / 10), 1);
+      runOnJS(updateGrid)(Math.floor(event.x / 10), Math.floor(event.y / 10), currentColor);
       // Handle when drag is released
     });
 
   const tap = Gesture.Tap().onEnd((event) => {
-    runOnJS(updateGrid)(Math.floor(event.x / 10), Math.floor(event.y / 10), 1);
+    runOnJS(updateGrid)(Math.floor(event.x / 10), Math.floor(event.y / 10), currentColor);
   });
 
   const combinedGesture = Gesture.Race(pan);
