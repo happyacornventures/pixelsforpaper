@@ -1,6 +1,6 @@
 import { Canvas, Line, Rect } from '@shopify/react-native-skia';
 import { useState } from 'react';
-import { View } from 'react-native';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Gesture, GestureDetector, GestureHandlerRootView } from 'react-native-gesture-handler';
 import { runOnJS } from 'react-native-reanimated';
 
@@ -81,6 +81,35 @@ export default function Index() {
           </Canvas>
         </View>
       </GestureDetector>
+      <View style={styles.paletteContainer}>
+        {palette.map((color, index) => (
+          <TouchableOpacity
+            key={index}
+            style={[styles.colorSwatch, { backgroundColor: color }, currentColor === index && styles.selectedColor]}
+            onPress={() => setCurrentColor(index)}
+          />
+        ))}
+      </View>
     </GestureHandlerRootView>
   );
 }
+
+const styles = StyleSheet.create({
+  paletteContainer: {
+    flexDirection: 'row',
+    marginTop: 20,
+    justifyContent: 'center',
+  },
+  colorSwatch: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    marginHorizontal: 8,
+    borderWidth: 1,
+    borderColor: '#ccc',
+  },
+  selectedColor: {
+    borderWidth: 3,
+    borderColor: '#0066ff',
+  },
+});
