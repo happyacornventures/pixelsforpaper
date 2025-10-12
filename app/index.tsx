@@ -6,7 +6,7 @@ import { runOnJS } from 'react-native-reanimated';
 
 export default function Index() {
   const [grid, setGrid] = useState(() => Array.from({ length: 24 }, () => Array.from({ length: 24 }, () => 0)))
-  const [palette] = useState(["#fff", "#333"]);
+  const [palette] = useState(["#fff", "#333", "#900", "#090","#009"]);
   const [currentColor, setCurrentColor] = useState(1);
 
   const updateGrid = (x: number, y: number, value?: number) => {
