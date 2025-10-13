@@ -35,12 +35,6 @@ export default function Index() {
       // Handle when drag is released
     });
 
-  const tap = Gesture.Tap().onEnd((event) => {
-    runOnJS(updateGrid)(Math.floor(event.x / 10), Math.floor(event.y / 10), currentColor);
-  });
-
-  const combinedGesture = Gesture.Race(pan);
-
   return (
     <GestureHandlerRootView style={{
       flex: 1,
