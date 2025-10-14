@@ -33,6 +33,15 @@ export default function Index() {
       // Handle when drag is released
     });
 
+  const handleExport = () => {
+    const image = canvasRef.current?.makeImageSnapshot();
+    if (image) {
+      const base64 = image.encodeToBase64();
+      console.log(`data:image/png;base64,${base64}`);
+      // Next step would be to save this base64 image to the device.
+    }
+  };
+
   return (
     <GestureHandlerRootView style={{
       flex: 1,
