@@ -5,8 +5,7 @@ import { Gesture, GestureDetector, GestureHandlerRootView } from 'react-native-g
 import { runOnJS } from 'react-native-reanimated';
 
 export default function Index() {
-  const [grid, setGrid] = useState(() => Array.from({ length: 24 }, () => Array.from({ length: 24 }, () => 0)))
-  const [newGrid, setNewGrid] = useState(() => Array.from({ length: 24 * 24 }, () => 0));
+  const [grid, setGrid] = useState(() => Array.from({ length: 24 * 24 }, () => 0));
   const [palette] = useState(["#fff", "#333", "#900", "#090","#009"]);
   const [currentColor, setCurrentColor] = useState(1);
   const [currentLayer, setCurrentLayer] = useState(0);
@@ -14,8 +13,8 @@ export default function Index() {
   const updateGrid = (x: number, y: number, value?: number) => {
     if (x < 0 || x >= 24 || y < 0 || y >= 24) return;
     setGrid((prev) => {
-      const newGrid = prev.map(row => row.slice());
-      newGrid[y][x] = value ?? (newGrid[y][x] === 0 ? 1 : 0);
+      const newGrid = prev.slice();
+      newGrid[y * 24 + x] = value ?? (newGrid[y * 24 + x] === 0 ? 1 : 0);
       return newGrid;
     });
   }
@@ -50,19 +49,17 @@ export default function Index() {
           <Canvas style={{ width: 240, height: 240 }}>
             <Rect x={0} y={0} width={240} height={240} color="#f0f0f0" />
             {/** 8x8 grid here */}
-            {grid.map((row, rowIndex) =>
-              row.map((cell, cellIndex) => (
-                <Rect
-                  key={`${rowIndex}-${cellIndex}`}
-                  x={cellIndex * 10}
-                  y={rowIndex * 10}
-                  width={10}
-                  height={10}
-                  color={palette[cell]}
-                />
-              ))
-            )}
-                        {/* Vertical lines */}
+            {grid.map((cell, index) => (
+              <Rect
+                key={index}
+                x={(index % 24) * 10}
+                y={Math.floor(index / 24) * 10}
+                width={10}
+                height={10}
+                color={palette[cell]}
+              />
+            ))}
+            {/* Vertical lines */}
             {Array.from({ length: 24 }, (_, i) => (
               <Line key={`v${i}`} p1={{ x: i * 10, y: 0 }} p2={{ x: i * 10, y: 240 }} color="#333" strokeWidth={1} />
             ))}
