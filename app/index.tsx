@@ -1,6 +1,6 @@
 import { Canvas, Line, Rect, useCanvasRef } from '@shopify/react-native-skia';
 import { useState } from 'react';
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Button, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Gesture, GestureDetector, GestureHandlerRootView } from 'react-native-gesture-handler';
 import { runOnJS } from 'react-native-reanimated';
 
@@ -79,6 +79,9 @@ export default function Index() {
             onPress={() => setCurrentColor(index)}
           />
         ))}
+      </View>
+      <View style={{ marginTop: 20 }}>
+        <Button title="Export Image" onPress={handleExport} />
       </View>
     </GestureHandlerRootView>
   );
