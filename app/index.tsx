@@ -1,10 +1,11 @@
-import { Canvas, Line, Rect } from '@shopify/react-native-skia';
+import { Canvas, Line, Rect, useCanvasRef } from '@shopify/react-native-skia';
 import { useState } from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Gesture, GestureDetector, GestureHandlerRootView } from 'react-native-gesture-handler';
 import { runOnJS } from 'react-native-reanimated';
 
 export default function Index() {
+  const canvasRef = useCanvasRef();
   const [grid, setGrid] = useState(() => Array.from({ length: 24 * 24 }, () => 0));
   const [palette] = useState(["#fff", "#333", "#900", "#090","#009"]);
   const [currentColor, setCurrentColor] = useState(1);
@@ -46,7 +47,7 @@ export default function Index() {
           alignItems: 'center',
           backgroundColor: '#f0f0f0'
         }}>
-          <Canvas style={{ width: 240, height: 240 }}>
+          <Canvas style={{ width: 240, height: 240 }} ref={canvasRef}>
             <Rect x={0} y={0} width={240} height={240} color="#f0f0f0" />
             {/** 8x8 grid here */}
             {grid.map((cell, index) => (
