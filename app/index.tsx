@@ -33,7 +33,7 @@ export default function Index() {
       // Handle when drag is released
     });
 
-  const handleExport = () => {
+  const handleExport = async () => {
     const image = canvasRef.current?.makeImageSnapshot();
     if (image) {
       const base64 = image.encodeToBase64();
