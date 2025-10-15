@@ -36,6 +36,7 @@ export default function Index() {
   const handleExport = async () => {
     const image = canvasRef.current?.makeImageSnapshot();
     if (image) {
+      const file = new File(Paths.cache, 'pixel-art.png');
       const base64 = image.encodeToBase64();
       console.log(`data:image/png;base64,${base64}`);
       // Next step would be to save this base64 image to the device.
