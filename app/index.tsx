@@ -39,6 +39,7 @@ export default function Index() {
       const file = new File(Paths.cache, 'pixel-art.png');
       const base64 = image.encodeToBase64();
       file.write(base64);
+      shareAsync(file.uri).then(console.log).catch(console.log);
     }
   };
 
