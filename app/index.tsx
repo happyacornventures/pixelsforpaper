@@ -1,4 +1,6 @@
 import { Canvas, Line, Rect, useCanvasRef } from '@shopify/react-native-skia';
+import { File, Paths } from 'expo-file-system';
+import { shareAsync } from 'expo-sharing';
 import { useState } from 'react';
 import { Button, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Gesture, GestureDetector, GestureHandlerRootView } from 'react-native-gesture-handler';
