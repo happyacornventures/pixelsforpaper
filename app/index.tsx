@@ -65,7 +65,7 @@ export default function Index() {
           <Canvas style={{ width: 240, height: 240 }} ref={canvasRef}>
             <Rect x={0} y={0} width={240} height={240} color="#f0f0f0" />
             {/** 8x8 grid here */}
-            {grid.map((cell, index) => (
+            {/* {grid.map((cell, index) => (
               <Rect
                 key={index}
                 x={(index % 24) * 10}
@@ -73,6 +73,16 @@ export default function Index() {
                 width={10}
                 height={10}
                 color={palette[cell]}
+              />
+            ))} */}
+            {objGrid.map((obj) => (
+              <Rect
+                key={`${obj.x}-${obj.y}`}
+                x={obj.x * 10}
+                y={obj.y * 10}
+                width={10}
+                height={10}
+                color={palette[obj.color]}
               />
             ))}
             {/* Vertical lines */}
