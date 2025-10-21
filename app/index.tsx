@@ -9,6 +9,7 @@ import { runOnJS } from 'react-native-reanimated';
 export default function Index() {
   const canvasRef = useCanvasRef();
   const [grid, setGrid] = useState(() => Array.from({ length: 24 * 24 }, () => 0));
+  const [objGrid, setObjGrid] = useState<{ x: number; y: number; color: number; layer?: number }[]>([]);
   const [palette] = useState(["#fff", "#333", "#900", "#090","#009"]);
   const [currentColor, setCurrentColor] = useState(1);
   const [currentLayer, setCurrentLayer] = useState(0);
@@ -20,6 +21,7 @@ export default function Index() {
       newGrid[y * 24 + x] = value ?? (newGrid[y * 24 + x] === 0 ? 1 : 0);
       return newGrid;
     });
+    if(!objGrid.find(obj=>obj.x===x && obj.y===y)) setObjGrid([...objGrid, { x, y, color: currentColor, layer: currentLayer }]);
   }
 
   const pan = Gesture.Pan()
