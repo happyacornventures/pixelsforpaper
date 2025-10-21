@@ -22,6 +22,7 @@ export default function Index() {
       return newGrid;
     });
     if(!objGrid.find(obj=>obj.x===x && obj.y===y)) setObjGrid([...objGrid, { x, y, color: currentColor, layer: currentLayer }]);
+    else setObjGrid(objGrid.map(obj => (obj.x!==x || obj.y!==y ? obj : {...obj, color: currentColor}) ))
   }
 
   const pan = Gesture.Pan()
