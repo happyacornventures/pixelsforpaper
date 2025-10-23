@@ -28,14 +28,14 @@ export default function Index() {
 
   const pan = Gesture.Pan()
     .onBegin((event) => {
-      runOnJS(updateGrid)(Math.floor(event.x / 10), Math.floor(event.y / 10), currentColor);
+      runOnJS(updateGrid)(Math.floor(event.x / 10), Math.floor(event.y / 10), currentLayer, currentColor);
     })
     .onUpdate((event) => {
-      runOnJS(updateGrid)(Math.floor(event.x / 10), Math.floor(event.y / 10), currentColor);
+      runOnJS(updateGrid)(Math.floor(event.x / 10), Math.floor(event.y / 10), currentLayer, currentColor);
       // Handle continuous dragging
     })
     .onEnd((event) => {
-      runOnJS(updateGrid)(Math.floor(event.x / 10), Math.floor(event.y / 10), currentColor);
+      runOnJS(updateGrid)(Math.floor(event.x / 10), Math.floor(event.y / 10), currentLayer, currentColor);
       // Handle when drag is released
     });
 
