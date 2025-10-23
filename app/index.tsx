@@ -9,7 +9,7 @@ import { runOnJS } from 'react-native-reanimated';
 export default function Index() {
   const canvasRef = useCanvasRef();
   const [grid, setGrid] = useState(() => Array.from({ length: 24 * 24 }, () => 0));
-  const [objGrid, setObjGrid] = useState<{ x: number; y: number; color: number; layer?: number }[]>([]);
+  const [objGrid, setObjGrid] = useState<{ x: number; y: number; color: number; z: number }[]>([]);
   const [palette] = useState(["#fff", "#333", "#900", "#090","#009"]);
   const [currentColor, setCurrentColor] = useState(1);
   const [layers, setLayers] = useState(1);
