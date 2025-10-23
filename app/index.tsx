@@ -15,15 +15,15 @@ export default function Index() {
   const [layers, setLayers] = useState(1);
   const [currentLayer, setCurrentLayer] = useState(0);
 
-  const updateGrid = (x: number, y: number, value?: number) => {
+  const updateGrid = (x: number, y: number, z: number, color: number) => {
     if (x < 0 || x >= 24 || y < 0 || y >= 24) return;
     setGrid((prev) => {
       const newGrid = prev.slice();
-      newGrid[y * 24 + x] = value ?? (newGrid[y * 24 + x] === 0 ? 1 : 0);
+      newGrid[y * 24 + x] = color ?? (newGrid[y * 24 + x] === 0 ? 1 : 0);
       return newGrid;
     });
-    if(!objGrid.find(obj=>obj.x===x && obj.y===y)) setObjGrid([...objGrid, { x, y, color: currentColor, layer: currentLayer }]);
-    else setObjGrid(objGrid.map(obj => (obj.x!==x || obj.y!==y ? obj : {...obj, color: currentColor}) ))
+    if(!objGrid.find(obj=>obj.x===x && obj.y===y && obj.z === z)) setObjGrid([...objGrid, { x, y, z, color }]);
+    else setObjGrid(objGrid.map(obj => (obj.x!==x || obj.y!==y || obj.z !== z ? obj : {...obj, color}) ))
   }
 
   const pan = Gesture.Pan()
