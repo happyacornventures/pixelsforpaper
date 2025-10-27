@@ -12,7 +12,6 @@ export default function Index() {
   const [objGrid, setObjGrid] = useState<{ x: number; y: number; color: number; z: number }[]>([]);
   const [palette] = useState(["#fff", "#333", "#900", "#090","#009"]);
   const [currentColor, setCurrentColor] = useState(1);
-  const [layers, setLayers] = useState(1);
   const [currentLayer, setCurrentLayer] = useState(0);
 
   const updateGrid = (x: number, y: number, z: number, color: number) => {
