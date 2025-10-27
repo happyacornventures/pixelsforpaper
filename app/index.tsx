@@ -75,7 +75,7 @@ export default function Index() {
                 color={palette[cell]}
               />
             ))} */}
-            {objGrid.map((obj) => (
+            {objGrid.sort((obja, objb) => obja.z - objb.z).map((obj) => (
               <Rect
                 key={`${obj.x}-${obj.y}`}
                 x={obj.x * 10}
