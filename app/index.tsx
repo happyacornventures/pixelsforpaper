@@ -13,6 +13,8 @@ export default function Index() {
   const [palette] = useState(["#fff", "#333", "#900", "#090","#009"]);
   const [currentColor, setCurrentColor] = useState(1);
   const [currentLayer, setCurrentLayer] = useState(0);
+  const [sizes] = useState([8, 16, 24, 32])
+  const [currentSize, setCurrentSize] = useState(1);
 
   const updateGrid = (x: number, y: number, z: number, color: number) => {
     if (x < 0 || x >= 24 || y < 0 || y >= 24) return;
