@@ -2,7 +2,7 @@ import { Canvas, Line, Rect, useCanvasRef } from '@shopify/react-native-skia';
 import { File, Paths } from 'expo-file-system';
 import { shareAsync } from 'expo-sharing';
 import { useState } from 'react';
-import { Button, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Gesture, GestureDetector, GestureHandlerRootView } from 'react-native-gesture-handler';
 import { runOnJS } from 'react-native-reanimated';
 
@@ -56,6 +56,17 @@ export default function Index() {
       justifyContent: "center",
       alignItems: "center",
     }}>
+      <View style={styles.paletteContainer}>
+        {sizes.map((size, index) => (
+          <TouchableOpacity
+            key={index}
+            style={[styles.colorSwatch, currentSize === index && styles.selectedColor]}
+            onPress={() => setCurrentSize(index)}
+          >
+            <Text>{size}</Text>
+          </TouchableOpacity>
+        ))}
+      </View>
       <GestureDetector gesture={pan}>
         <View style={{
           width: 240,
