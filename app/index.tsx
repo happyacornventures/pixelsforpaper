@@ -8,7 +8,7 @@ import { runOnJS } from 'react-native-reanimated';
 
 export default function Index() {
   const canvasRef = useCanvasRef();
-  const [grid, setGrid] = useState(() => Array.from({ length: 24 * 24 }, () => 0));
+  // const [grid, setGrid] = useState(() => Array.from({ length: 24 * 24 }, () => 0));
   const [objGrid, setObjGrid] = useState<{ x: number; y: number; color: number; z: number }[]>([]);
   const [palette] = useState(["#fff", "#333", "#900", "#090","#009"]);
   const [currentColor, setCurrentColor] = useState(1);
@@ -18,11 +18,11 @@ export default function Index() {
 
   const updateGrid = (x: number, y: number, z: number, color: number) => {
     if (x < 0 || x >= sizes[currentSize] || y < 0 || y >= sizes[currentSize]) return;
-    setGrid((prev) => {
-      const newGrid = prev.slice();
-      newGrid[y * sizes[currentSize] + x] = color ?? (newGrid[y * sizes[currentSize] + x] === 0 ? 1 : 0);
-      return newGrid;
-    });
+    // setGrid((prev) => {
+    //   const newGrid = prev.slice();
+    //   newGrid[y * sizes[currentSize] + x] = color ?? (newGrid[y * sizes[currentSize] + x] === 0 ? 1 : 0);
+    //   return newGrid;
+    // });
     if(!objGrid.find(obj=>obj.x===x && obj.y===y && obj.z === z)) setObjGrid([...objGrid, { x, y, z, color }]);
     else setObjGrid(objGrid.map(obj => (obj.x!==x || obj.y!==y || obj.z !== z ? obj : {...obj, color}) ))
   }
