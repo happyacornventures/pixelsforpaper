@@ -17,10 +17,10 @@ export default function Index() {
   const [currentSize, setCurrentSize] = useState(1);
 
   const updateGrid = (x: number, y: number, z: number, color: number) => {
-    if (x < 0 || x >= 24 || y < 0 || y >= 24) return;
+    if (x < 0 || x >= sizes[currentSize] || y < 0 || y >= sizes[currentSize]) return;
     setGrid((prev) => {
       const newGrid = prev.slice();
-      newGrid[y * 24 + x] = color ?? (newGrid[y * 24 + x] === 0 ? 1 : 0);
+      newGrid[y * sizes[currentSize] + x] = color ?? (newGrid[y * sizes[currentSize] + x] === 0 ? 1 : 0);
       return newGrid;
     });
     if(!objGrid.find(obj=>obj.x===x && obj.y===y && obj.z === z)) setObjGrid([...objGrid, { x, y, z, color }]);
@@ -69,14 +69,14 @@ export default function Index() {
       </View>
       <GestureDetector gesture={pan}>
         <View style={{
-          width: 240,
-          height: 240,
+          width: sizes[currentSize] * 10,
+          height: sizes[currentSize] * 10,
           justifyContent: 'center',
           alignItems: 'center',
           backgroundColor: '#f0f0f0'
         }}>
-          <Canvas style={{ width: 240, height: 240 }} ref={canvasRef}>
-            <Rect x={0} y={0} width={240} height={240} color="#f0f0f0" />
+          <Canvas style={{ width: sizes[currentSize] * 10, height: sizes[currentSize] * 10 }} ref={canvasRef}>
+            <Rect x={0} y={0} width={sizes[currentSize] * 10} height={sizes[currentSize] * 10} color="#f0f0f0" />
             {/** 8x8 grid here */}
             {/* {grid.map((cell, index) => (
               <Rect
@@ -99,12 +99,12 @@ export default function Index() {
               />
             ))}
             {/* Vertical lines */}
-            {Array.from({ length: 24 }, (_, i) => (
-              <Line key={`v${i}`} p1={{ x: i * 10, y: 0 }} p2={{ x: i * 10, y: 240 }} color="#333" strokeWidth={1} />
+            {Array.from({ length: sizes[currentSize] }, (_, i) => (
+              <Line key={`v${i}`} p1={{ x: i * 10, y: 0 }} p2={{ x: i * 10, y: sizes[currentSize] * 10 }} color="#333" strokeWidth={1} />
             ))}
             {/* Horizontal lines */}
-            {Array.from({ length: 24 }, (_, i) => (
-              <Line key={`h${i}`} p1={{ x: 0, y: i * 10 }} p2={{ x: 240, y: i * 10 }} color="#333" strokeWidth={1} />
+            {Array.from({ length: sizes[currentSize] }, (_, i) => (
+              <Line key={`h${i}`} p1={{ x: 0, y: i * 10 }} p2={{ x: sizes[currentSize] * 10, y: i * 10 }} color="#333" strokeWidth={1} />
             ))}
           </Canvas>
         </View>
