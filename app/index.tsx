@@ -25,14 +25,14 @@ export default function Index() {
 
   const pan = Gesture.Pan()
     .onBegin((event) => {
-      runOnJS(updateGrid)(Math.floor(event.x / 10), Math.floor(event.y / 10), currentLayer, currentColor);
+      runOnJS(updateGrid)(Math.floor(event.x / (canvasSize / sizes[currentSize])), Math.floor(event.y / (canvasSize / sizes[currentSize])), currentLayer, currentColor);
     })
     .onUpdate((event) => {
-      runOnJS(updateGrid)(Math.floor(event.x / 10), Math.floor(event.y / 10), currentLayer, currentColor);
+      runOnJS(updateGrid)(Math.floor(event.x / (canvasSize / sizes[currentSize])), Math.floor(event.y / (canvasSize / sizes[currentSize])), currentLayer, currentColor);
       // Handle continuous dragging
     })
     .onEnd((event) => {
-      runOnJS(updateGrid)(Math.floor(event.x / 10), Math.floor(event.y / 10), currentLayer, currentColor);
+      runOnJS(updateGrid)(Math.floor(event.x / (canvasSize / sizes[currentSize])), Math.floor(event.y / (canvasSize / sizes[currentSize])), currentLayer, currentColor);
       // Handle when drag is released
     });
 
@@ -65,19 +65,19 @@ export default function Index() {
       </View>
       <GestureDetector gesture={pan}>
         <View style={{
-          width: sizes[currentSize] * 10,
-          height: sizes[currentSize] * 10,
+          width: canvasSize,
+          height: canvasSize,
           justifyContent: 'center',
           alignItems: 'center',
           backgroundColor: '#f0f0f0'
         }}>
-          <Canvas style={{ width: sizes[currentSize] * 10, height: sizes[currentSize] * 10 }} ref={canvasRef}>
-            <Rect x={0} y={0} width={sizes[currentSize] * 10} height={sizes[currentSize] * 10} color="#f0f0f0" />
+          <Canvas style={{ width: canvasSize, height: canvasSize }} ref={canvasRef}>
+            <Rect x={0} y={0} width={canvasSize} height={canvasSize } color="#f0f0f0" />
             {objGrid.sort((obja, objb) => obja.z - objb.z).map((obj) => (
               <Rect
                 key={`${obj.x}-${obj.y}`}
-                x={obj.x * 10}
-                y={obj.y * 10}
+                x={obj.x * (canvasSize / sizes[currentSize])}
+                y={obj.y * (canvasSize / sizes[currentSize])}
                 width={10}
                 height={10}
                 color={palette[obj.color]}
@@ -85,11 +85,11 @@ export default function Index() {
             ))}
             {/* Vertical lines */}
             {Array.from({ length: sizes[currentSize] }, (_, i) => (
-              <Line key={`v${i}`} p1={{ x: i * 10, y: 0 }} p2={{ x: i * 10, y: sizes[currentSize] * 10 }} color="#333" strokeWidth={1} />
+              <Line key={`v${i}`} p1={{ x: i * (canvasSize / sizes[currentSize]), y: 0 }} p2={{ x: i * (canvasSize / sizes[currentSize]), y: sizes[currentSize] * (canvasSize / sizes[currentSize]) }} color="#333" strokeWidth={1} />
             ))}
             {/* Horizontal lines */}
             {Array.from({ length: sizes[currentSize] }, (_, i) => (
-              <Line key={`h${i}`} p1={{ x: 0, y: i * 10 }} p2={{ x: sizes[currentSize] * 10, y: i * 10 }} color="#333" strokeWidth={1} />
+              <Line key={`h${i}`} p1={{ x: 0, y: i * (canvasSize / sizes[currentSize]) }} p2={{ x: sizes[currentSize] * (canvasSize / sizes[currentSize]), y: i * (canvasSize / sizes[currentSize]) }} color="#333" strokeWidth={1} />
             ))}
           </Canvas>
         </View>
