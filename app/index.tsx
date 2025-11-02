@@ -6,6 +6,8 @@ import { Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Gesture, GestureDetector, GestureHandlerRootView } from 'react-native-gesture-handler';
 import { runOnJS } from 'react-native-reanimated';
 
+const canvasSize = 288;
+
 export default function Index() {
   const canvasRef = useCanvasRef();
   const [objGrid, setObjGrid] = useState<{ x: number; y: number; color: number; z: number }[]>([]);
