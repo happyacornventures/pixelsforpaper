@@ -8,7 +8,6 @@ import { runOnJS } from 'react-native-reanimated';
 
 export default function Index() {
   const canvasRef = useCanvasRef();
-  // const [grid, setGrid] = useState(() => Array.from({ length: 24 * 24 }, () => 0));
   const [objGrid, setObjGrid] = useState<{ x: number; y: number; color: number; z: number }[]>([]);
   const [palette] = useState(["#fff", "#333", "#900", "#090","#009"]);
   const [currentColor, setCurrentColor] = useState(1);
@@ -18,11 +17,6 @@ export default function Index() {
 
   const updateGrid = (x: number, y: number, z: number, color: number) => {
     if (x < 0 || x >= sizes[currentSize] || y < 0 || y >= sizes[currentSize]) return;
-    // setGrid((prev) => {
-    //   const newGrid = prev.slice();
-    //   newGrid[y * sizes[currentSize] + x] = color ?? (newGrid[y * sizes[currentSize] + x] === 0 ? 1 : 0);
-    //   return newGrid;
-    // });
     if(!objGrid.find(obj=>obj.x===x && obj.y===y && obj.z === z)) setObjGrid([...objGrid, { x, y, z, color }]);
     else setObjGrid(objGrid.map(obj => (obj.x!==x || obj.y!==y || obj.z !== z ? obj : {...obj, color}) ))
   }
@@ -77,17 +71,6 @@ export default function Index() {
         }}>
           <Canvas style={{ width: sizes[currentSize] * 10, height: sizes[currentSize] * 10 }} ref={canvasRef}>
             <Rect x={0} y={0} width={sizes[currentSize] * 10} height={sizes[currentSize] * 10} color="#f0f0f0" />
-            {/** 8x8 grid here */}
-            {/* {grid.map((cell, index) => (
-              <Rect
-                key={index}
-                x={(index % 24) * 10}
-                y={Math.floor(index / 24) * 10}
-                width={10}
-                height={10}
-                color={palette[cell]}
-              />
-            ))} */}
             {objGrid.sort((obja, objb) => obja.z - objb.z).map((obj) => (
               <Rect
                 key={`${obj.x}-${obj.y}`}
