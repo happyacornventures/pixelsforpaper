@@ -78,8 +78,8 @@ export default function Index() {
                 key={`${obj.x}-${obj.y}`}
                 x={obj.x * (canvasSize / sizes[currentSize])}
                 y={obj.y * (canvasSize / sizes[currentSize])}
-                width={10}
-                height={10}
+                width={canvasSize / sizes[currentSize]}
+                height={canvasSize / sizes[currentSize]}
                 color={palette[obj.color]}
               />
             ))}
