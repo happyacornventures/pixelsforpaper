@@ -73,7 +73,7 @@ export default function Index() {
         }}>
           <Canvas style={{ width: canvasSize, height: canvasSize }} ref={canvasRef}>
             <Rect x={0} y={0} width={canvasSize} height={canvasSize } color="#f0f0f0" />
-            {objGrid.sort((obja, objb) => obja.z - objb.z).map((obj) => (
+            {[...objGrid].sort((obja, objb) => obja.z - objb.z).map((obj) => (
               <Rect
                 key={`${obj.x}-${obj.y}`}
                 x={obj.x * (canvasSize / sizes[currentSize])}
