@@ -37,14 +37,6 @@ export default function Index() {
     });
 
   const handleExport = async () => {
-    const image = canvasRef.current?.makeImageSnapshot();
-    if (image) {
-      const file = new File(Paths.cache, 'pixel-art.png');
-      const encodedImage = image.encodeToBytes();
-      await file.write(encodedImage);
-      await shareAsync(file.uri);
-    }
-
     const exportSize = 384;
     const pixelSize = exportSize / sizes[currentSize];
     const surface = Skia.Surface.Make(exportSize, exportSize);
