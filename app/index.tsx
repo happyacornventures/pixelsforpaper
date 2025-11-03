@@ -84,11 +84,11 @@ export default function Index() {
               />
             ))}
             {/* Vertical lines */}
-            {Array.from({ length: sizes[currentSize] }, (_, i) => (
+            {Array.from({ length: sizes[currentSize] + 1 }, (_, i) => (
               <Line key={`v${i}`} p1={{ x: i * (canvasSize / sizes[currentSize]), y: 0 }} p2={{ x: i * (canvasSize / sizes[currentSize]), y: sizes[currentSize] * (canvasSize / sizes[currentSize]) }} color="#333" strokeWidth={1} />
             ))}
             {/* Horizontal lines */}
-            {Array.from({ length: sizes[currentSize] }, (_, i) => (
+            {Array.from({ length: sizes[currentSize] + 1 }, (_, i) => (
               <Line key={`h${i}`} p1={{ x: 0, y: i * (canvasSize / sizes[currentSize]) }} p2={{ x: sizes[currentSize] * (canvasSize / sizes[currentSize]), y: i * (canvasSize / sizes[currentSize]) }} color="#333" strokeWidth={1} />
             ))}
           </Canvas>
