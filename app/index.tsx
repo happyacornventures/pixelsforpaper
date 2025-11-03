@@ -1,4 +1,4 @@
-import { Canvas, Line, Rect, useCanvasRef } from '@shopify/react-native-skia';
+import { Canvas, Line, Rect, Skia, useCanvasRef } from '@shopify/react-native-skia';
 import { File, Paths } from 'expo-file-system';
 import { shareAsync } from 'expo-sharing';
 import { useState } from 'react';
@@ -41,6 +41,34 @@ export default function Index() {
     if (image) {
       const file = new File(Paths.cache, 'pixel-art.png');
       const encodedImage = image.encodeToBytes();
+      await file.write(encodedImage);
+      await shareAsync(file.uri);
+    }
+
+    const exportSize = 384;
+    const pixelSize = exportSize / sizes[currentSize];
+    const surface = Skia.Surface.Make(exportSize, exportSize);
+    if (!surface) {
+      console.error("Failed to create Skia surface");
+      return;
+    }
+
+    const canvas = surface.getCanvas();
+    const sortedGrid = [...objGrid].sort((a, b) => a.z - b.z);
+
+    for (const obj of sortedGrid) {
+      const paint = Skia.Paint();
+      paint.setColor(Skia.Color(palette[obj.color]));
+      canvas.drawRect(
+        Skia.XYWHRect(obj.x * pixelSize, obj.y * pixelSize, pixelSize, pixelSize),
+        paint
+      );
+    }
+
+    const snapshot = surface.makeImageSnapshot();
+    if (snapshot) {
+      const file = new File(Paths.cache, 'pixel-art-export.png');
+      const encodedImage = snapshot.encodeToBytes();
       await file.write(encodedImage);
       await shareAsync(file.uri);
     }
