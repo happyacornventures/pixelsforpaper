@@ -6,6 +6,35 @@ import { Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Gesture, GestureDetector, GestureHandlerRootView } from 'react-native-gesture-handler';
 import { runOnJS } from 'react-native-reanimated';
 
+const hasPhysMetadata = (encodedImage: Uint8Array): boolean => {
+  // skip png signature
+  let offset = 8;
+
+  while (offset < encodedImage.length) {
+    if (offset + 8 > encodedImage.length) {
+      break;
+    }
+
+    const view = new DataView(encodedImage.buffer, encodedImage.byteOffset);
+    const length = view.getUint32(offset, false);
+    const type = new TextDecoder().decode(encodedImage.subarray(offset + 4, offset + 8));
+
+    if (type === 'pHYs') {
+      return true;
+    }
+
+    // end of image data -- no need to continue
+    if (type === 'IEND') {
+      return false;
+    }
+
+    // current chunk = 4 (length) + 4 (type) + data length + 4 (CRC).
+    offset += 12 + length;
+  }
+
+  return false;
+};
+
 const canvasSize = 288;
 
 export default function Index() {
@@ -61,6 +90,7 @@ export default function Index() {
     if (snapshot) {
       const file = new File(Paths.cache, 'pixel-art-export.png');
       const encodedImage = snapshot.encodeToBytes();
+      console.log('has phys metadata: ', hasPhysMetadata(encodedImage));
       await file.write(encodedImage);
       await shareAsync(file.uri);
     }
