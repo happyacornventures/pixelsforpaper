@@ -6,7 +6,7 @@ import { Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Gesture, GestureDetector, GestureHandlerRootView } from 'react-native-gesture-handler';
 import { runOnJS } from 'react-native-reanimated';
 
-const hasPhysMetadata = (encodedImage: Uint8Array): boolean => {
+const hasPhysMetadata = (encodedImage: Uint8Array): number => {
   // skip png signature
   let offset = 8;
 
@@ -20,19 +20,19 @@ const hasPhysMetadata = (encodedImage: Uint8Array): boolean => {
     const type = new TextDecoder().decode(encodedImage.subarray(offset + 4, offset + 8));
 
     if (type === 'pHYs') {
-      return true;
+      return offset;
     }
 
     // end of image data -- no need to continue
     if (type === 'IEND') {
-      return false;
+      return -1;
     }
 
     // current chunk = 4 (length) + 4 (type) + data length + 4 (CRC).
     offset += 12 + length;
   }
 
-  return false;
+  return -1;
 };
 
 const canvasSize = 288;
