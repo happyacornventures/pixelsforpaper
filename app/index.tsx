@@ -35,6 +35,28 @@ const hasPhysMetadata = (encodedImage: Uint8Array): number => {
   return -1;
 };
 
+const composePhysMetadata = () => {
+  // creates a new pHYs metadata chunk
+  const length = new Uint8Array([0, 0, 0, 9]); // 9 bytes of data
+  const type = new TextEncoder().encode('pHYs');
+  // store 384 ppi (dots per inch) as the vertical and horizontal resolution
+  // store in big endian format
+
+  const dotsPerInch = 384 * 39.37008; // dots per inch * inches per meter
+  const data = new Uint8Array([
+    (dotsPerInch >> 24) & 0xff,
+    (dotsPerInch >> 16) & 0xff,
+    (dotsPerInch >> 8) & 0xff,
+    dotsPerInch & 0xff,
+  ]);
+  const unitSpecifier = new Uint8Array([1]); // meter
+
+  const coreFields = new Uint8Array([...type, ...data, ...data, ...unitSpecifier]);
+
+  const crc = new Uint8Array([/** tomorrow */]);
+  return new Uint8Array([...length, ...coreFields, ...crc]);
+}
+
 const canvasSize = 288;
 
 export default function Index() {
